@@ -13,7 +13,7 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
       <div className="flex items-center justify-between px-6 md:px-12 py-4">
         <a href="#" className="font-display text-sm font-bold tracking-widest text-foreground">
-          SANDIYA THAPA
+          SANDIYA<span className="text-red">.</span>
         </a>
 
         {/* Desktop */}
@@ -22,7 +22,7 @@ const Navbar = () => {
             <a
               key={link.label}
               href={link.href}
-              className="font-body text-xs tracking-[0.2em] text-muted-foreground hover:text-foreground transition-colors duration-300"
+              className="font-body text-xs tracking-[0.2em] text-muted-foreground hover:text-red transition-colors duration-300"
             >
               {link.label}
             </a>
@@ -49,7 +49,7 @@ const Navbar = () => {
               key={link.label}
               href={link.href}
               onClick={() => setIsOpen(false)}
-              className="block font-body text-sm tracking-[0.2em] text-muted-foreground hover:text-foreground py-3 transition-colors"
+              className="block font-body text-sm tracking-[0.2em] text-muted-foreground hover:text-red py-3 transition-colors"
             >
               {link.label}
             </a>

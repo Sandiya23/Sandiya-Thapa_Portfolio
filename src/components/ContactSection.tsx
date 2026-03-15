@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Instagram, Linkedin } from "lucide-react";
 
 const ContactSection = () => {
   return (
@@ -13,7 +14,7 @@ const ContactSection = () => {
         <span className="font-body text-xs tracking-[0.3em] text-muted-foreground uppercase">Contact</span>
 
         <h2 className="font-display text-4xl md:text-6xl lg:text-7xl font-extrabold text-foreground mt-8 leading-tight">
-          Let's work<br />together.
+          Let's work<br />together<span className="text-red">.</span>
         </h2>
 
         <div className="mt-12 space-y-4">
@@ -32,6 +33,34 @@ const ContactSection = () => {
           <p className="font-body text-sm text-muted-foreground">
             Kathmandu, Nepal
           </p>
+        </div>
+
+        {/* Let's Talk CTA + Socials */}
+        <div className="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-6">
+          <a
+            href="mailto:sandiyathapa323@gmail.com"
+            className="inline-flex items-center gap-2 bg-red text-red-foreground font-body text-sm font-medium px-8 py-3 hover:bg-red-muted transition-colors duration-300"
+          >
+            Let's Talk
+          </a>
+          <div className="flex items-center gap-4">
+            <a
+              href="https://instagram.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-red transition-colors duration-300"
+            >
+              <Instagram size={20} />
+            </a>
+            <a
+              href="https://linkedin.com/in/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-red transition-colors duration-300"
+            >
+              <Linkedin size={20} />
+            </a>
+          </div>
         </div>
       </motion.div>
 
