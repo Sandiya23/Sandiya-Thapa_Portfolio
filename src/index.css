@@ -39,6 +39,10 @@
     --font-display: 'Syne', sans-serif;
     --font-body: 'Inter', sans-serif;
 
+    --red: 0 72% 51%;
+    --red-foreground: 0 0% 100%;
+    --red-muted: 0 60% 40%;
+
     --sidebar-background: 0 0% 4%;
     --sidebar-foreground: 0 0% 96%;
     --sidebar-primary: 0 0% 100%;
