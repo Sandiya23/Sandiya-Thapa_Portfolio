@@ -38,11 +38,11 @@ const ContactSection = () => {
         {/* Let's Talk CTA + Socials */}
         <div className="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-6">
           <a
-            href="mailto:sandiyathapa323@gmail.com"
-            className="inline-flex items-center gap-2 bg-red text-red-foreground font-body text-sm font-medium px-8 py-3 hover:bg-red-muted transition-colors duration-300"
-          >
-            Let's Talk
-          </a>
+  href="mailto:sandiyathapa323@gmail.com"
+  className="inline-flex items-center gap-2 bg-red text-red-foreground font-body text-sm font-medium px-8 py-3 hover:bg-red-muted transition-colors duration-300 rounded-full"
+>
+  Let's Talk
+</a>
           <div className="flex items-center gap-4">
             <a
               href="https://instagram.com/"

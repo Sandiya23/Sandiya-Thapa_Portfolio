@@ -72,7 +72,7 @@ const HeroSection = () => {
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mt-8">
                 <a
                   href="#contact"
-                  className="inline-flex items-center gap-2 bg-red text-red-foreground font-body text-sm font-medium px-6 py-3 hover:bg-red-muted transition-colors duration-300"
+                  className="inline-flex items-center gap-2 bg-red text-red-foreground font-body text-sm font-medium px-6 py-3 hover:bg-red-muted transition-colors duration-300 rounded-full"
                 >
                   <Calendar size={16} />
                   Book a Consultation
@@ -80,7 +80,7 @@ const HeroSection = () => {
                 <a
                   href="/Sandiya_Thapa_CV.pdf"
                   download
-                  className="inline-flex items-center gap-2 border border-border text-foreground font-body text-sm font-medium px-6 py-3 hover:bg-secondary transition-colors duration-300"
+                  className="inline-flex items-center gap-2 border border-border text-foreground font-body text-sm font-medium px-6 py-3 hover:bg-secondary transition-colors duration-300 rounded-full"
                 >
                   <Download size={16} />
                   Download CV
