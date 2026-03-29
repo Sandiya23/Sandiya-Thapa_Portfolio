@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Instagram, Linkedin, Download, Calendar } from "lucide-react";
-import heroBg from "@/assets/hero-bg.jpg";
+import giphyGif from "/giphy.gif";
 
 const HeroSection = () => {
   return (
@@ -9,7 +9,7 @@ const HeroSection = () => {
       <div
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: `url(${heroBg})`,
+          backgroundImage: `url(${giphyGif})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
