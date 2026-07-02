@@ -1,3 +1,5 @@
+import karmaTrekkingHero from "@/assets/karma-trekking-hero.webp";
+
 export interface Project {
   id: string;
   title: string;
@@ -5,9 +7,27 @@ export interface Project {
   description: string;
   details: string[];
   tools?: string[];
+  image?: string;
+  link?: string;
 }
 
 export const projects: Project[] = [
+  {
+    id: "karma-trekking",
+    title: "Karma Trekking Website",
+    subtitle: "Himalayan Karma Treks — UI/UX & Frontend",
+    description:
+      "Designed and built the website for a Himalayan trekking and expedition company, featuring an immersive full-screen hero carousel, expedition and trek package pages, and a streamlined trip booking flow.",
+    details: [
+      "Designed an immersive full-screen hero with an auto-rotating banner carousel",
+      "Structured expedition, trekking, activity, and destination sections for easy browsing",
+      "Built responsive layouts across desktop, tablet, and mobile",
+      "Implemented a clear 'Book a Trip' call-to-action and booking flow",
+    ],
+    tools: ["Figma", "HTML", "CSS", "JavaScript", "Responsive Design"],
+    image: karmaTrekkingHero,
+    link: "https://karmatrekking.com/",
+  },
   {
     id: "waste-management-hackathon",
     title: "Waste Management Hackathon Project",

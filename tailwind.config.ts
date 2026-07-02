@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ["Syne", "sans-serif"],
-        body: ["Inter", "sans-serif"],
+        display: ["Clash Display", "Syne", "sans-serif"],
+        body: ["General Sans", "Inter", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -71,6 +71,13 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      boxShadow: {
+        elevated: "0 30px 80px -40px rgba(0,0,0,0.9)",
+        "elevated-lg": "0 50px 120px -50px rgba(0,0,0,0.95)",
+      },
+      transitionTimingFunction: {
+        premium: "cubic-bezier(0.16, 1, 0.3, 1)",
       },
       keyframes: {
         "accordion-down": {
