@@ -1,73 +1,75 @@
-# Welcome to your Lovable project
+# Sandiya Thapa — Portfolio
 
-## Project info
+Personal portfolio for **Sandiya Thapa**, a UI/UX Designer based in Kathmandu, Nepal.
+Live at **[sandiyathapa.com.np](https://sandiyathapa.com.np)**.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+A single-page React site with a small `/admin` content studio. Content (projects,
+experience, skills) loads from Supabase when configured, and otherwise falls back to
+the static JSON in `src/data/` — so the site works with or without a backend.
 
-## How can I edit this code?
+## Tech stack
 
-There are several ways of editing your application.
+- **Vite** + **React 18** + **TypeScript**
+- **Tailwind CSS** with **shadcn/ui** (Radix primitives)
+- **React Router** for routing, **Framer Motion** for animation
+- **Supabase** (optional) for live content and image storage
 
-**Use Lovable**
+## Getting started
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+Requires Node.js 18+ and npm.
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# Install dependencies
+npm install
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start the dev server (http://localhost:8080)
 npm run dev
+
+# Type-check + production build
+npm run build
+
+# Preview the production build locally
+npm run preview
+
+# Lint and run unit tests
+npm run lint
+npm run test
 ```
 
-**Edit a file directly in GitHub**
+## Editing content
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+There are two ways to edit projects, experience, and skills:
 
-**Use GitHub Codespaces**
+- **Local mode** — run `npm run dev` and open `http://localhost:8080/admin` (no login).
+  Edits are written straight into `src/data/*.json`; commit and push to publish them.
+- **Supabase mode** — configure a Supabase project so content can be edited on the live
+  site. See [`supabase/README.md`](./supabase/README.md) for the one-time setup.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+To enable Supabase, copy `.env.example` to `.env.local` and fill in:
 
-## What technologies are used for this project?
+```sh
+VITE_SUPABASE_URL=...
+VITE_SUPABASE_ANON_KEY=...
+```
 
-This project is built with:
+Without these, the site runs entirely on the built-in content in `src/data/`.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## Project structure
 
-## How can I deploy this project?
+```
+public/            Static assets, favicons, OG image, sitemap, robots.txt
+src/
+  components/      UI sections and shared components
+  data/            Fallback content (projects, experience, skills) as JSON
+  hooks/           Data hooks (Supabase-backed with static fallback)
+  lib/             Supabase client and helpers
+  pages/           Routes: Index, ProjectDetail, NotFound, admin/
+supabase/          Database schema and setup notes
+```
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+## Deployment
 
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+The site is a static SPA deployed on **Netlify**. `public/_redirects` rewrites all
+routes to `index.html` so client-side routes (e.g. `/admin`, `/work/:id`) resolve on
+direct load. To enable live editing on the deployed site, add the `VITE_SUPABASE_*`
+environment variables in the Netlify dashboard and redeploy.
