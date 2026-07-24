@@ -1,28 +1,12 @@
 import { motion } from "framer-motion";
+import { useSkillGroups } from "@/hooks/useSiteContent";
 import SectionHeading from "./SectionHeading";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
-const skillGroups = [
-  {
-    category: "UI/UX Design",
-    skills: ["UI Design", "UX Design", "Wireframing", "Prototyping", "Interaction Design", "Responsive Design"],
-  },
-  {
-    category: "Tools",
-    skills: ["Figma", "Adobe XD", "Adobe Creative Suite"],
-  },
-  {
-    category: "Frontend",
-    skills: ["HTML5", "CSS3", "JavaScript", "Bootstrap"],
-  },
-  {
-    category: "Soft Skills",
-    skills: ["Design Thinking", "Team Collaboration", "Communication", "Attention to Detail"],
-  },
-];
-
 const SkillsSection = () => {
+  const skillGroups = useSkillGroups();
+
   return (
     <section className="px-6 md:px-12 py-28 md:py-36 border-t border-border">
       <SectionHeading index="04" label="Capabilities" title="Skills & tools" />

@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -7,6 +8,8 @@ import ScrollToTop from "@/components/ScrollToTop";
 import Index from "./pages/Index.tsx";
 import ProjectDetail from "./pages/ProjectDetail.tsx";
 import NotFound from "./pages/NotFound.tsx";
+
+const AdminPage = lazy(() => import("./pages/admin/AdminPage.tsx"));
 
 const queryClient = new QueryClient();
 
@@ -20,6 +23,14 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/work/:id" element={<ProjectDetail />} />
+          <Route
+            path="/admin"
+            element={
+              <Suspense fallback={null}>
+                <AdminPage />
+              </Suspense>
+            }
+          />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

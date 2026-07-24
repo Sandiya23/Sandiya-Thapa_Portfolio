@@ -1,0 +1,18 @@
+[
+  {
+    "category": "UI/UX Design",
+    "skills": ["UI Design", "UX Design", "Wireframing", "Prototyping", "Interaction Design", "Responsive Design"]
+  },
+  {
+    "category": "Tools",
+    "skills": ["Figma", "Adobe XD", "Adobe Creative Suite"]
+  },
+  {
+    "category": "Frontend",
+    "skills": ["HTML5", "CSS3", "JavaScript", "Bootstrap"]
+  },
+  {
+    "category": "Soft Skills",
+    "skills": ["Design Thinking", "Team Collaboration", "Communication", "Attention to Detail"]
+  }
+]

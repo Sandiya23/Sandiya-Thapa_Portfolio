@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { projects } from "@/data/projects";
+import { useProjects } from "@/hooks/useSiteContent";
 import { publicCoverIndex } from "@/lib/covers";
 import ProjectImage from "./ProjectImage";
 import SectionHeading from "./SectionHeading";
@@ -28,6 +28,8 @@ const coverFor = (i: number) => {
 };
 
 const ProjectsSection = () => {
+  const projects = useProjects();
+
   return (
     <section id="work" className="px-6 md:px-12 py-28 md:py-36 border-t border-border">
       <SectionHeading index="02" label="Selected Work" title="Featured Projects" />

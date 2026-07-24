@@ -1,43 +1,13 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import { useExperiences } from "@/hooks/useSiteContent";
 import SectionHeading from "./SectionHeading";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
-const experiences = [
-  {
-    role: "UI/UX Designer",
-    company: "RewaSoft Pvt. Ltd",
-    details: [
-      "Designed UI for an expedition and travel website",
-      "Created wireframes and high-fidelity prototypes using Figma",
-      "Structured layouts to improve navigation and user engagement",
-      "Collaborated with developers to ensure accurate UI implementation",
-    ],
-  },
-  {
-    role: "UI/UX Designer",
-    company: "Neutroline Pvt. Ltd.",
-    details: [
-      "Designed an admin dashboard for managing staff, customers, and services",
-      "Created wireframes and interactive prototypes in Figma",
-      "Improved information architecture to simplify navigation and workflows",
-      "Collaborated with developers for UI implementation using HTML5 and CSS3",
-    ],
-  },
-  {
-    role: "UI/UX & Frontend Intern",
-    company: "Quasar Technology",
-    details: [
-      "Designed homepage UI focused on first-time user experience and clarity",
-      "Created high-fidelity mockups and interactive prototypes",
-      "Built responsive layouts for desktop and mobile devices",
-      "Improved accessibility, readability, and visual hierarchy",
-    ],
-  },
-];
-
 const ExperienceSection = () => {
+  const experiences = useExperiences();
+
   return (
     <section className="px-6 md:px-12 py-28 md:py-36 border-t border-border">
       <SectionHeading index="03" label="Experience" title="Where I've worked" />

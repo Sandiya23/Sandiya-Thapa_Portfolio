@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowUpRight, ArrowRight } from "lucide-react";
-import { projects } from "@/data/projects";
+import { useProjects } from "@/hooks/useSiteContent";
 import { publicCoverIndex } from "@/lib/covers";
 import ProjectImage from "@/components/ProjectImage";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -28,6 +28,7 @@ const coverFor = (i: number) => {
 
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
+  const projects = useProjects();
   const project = projects.find((p) => p.id === id);
   const projectIndex = projects.findIndex((p) => p.id === id);
 
@@ -160,7 +161,7 @@ const ProjectDetail = () => {
                 Role
               </h3>
               <p className="font-body text-sm text-foreground">
-                {project.subtitle.split("—")[1]?.trim() ?? "UI/UX Design"}
+                {project.role ?? project.subtitle.split("—")[1]?.trim() ?? "UI/UX Design"}
               </p>
             </div>
 
