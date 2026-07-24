@@ -48,26 +48,26 @@ const ProjectDetail = () => {
 
   const cover = (
     <div
-      className="dark relative overflow-hidden aspect-[16/9] border border-border shadow-elevated-lg group"
+      className="dark relative overflow-hidden aspect-[4/3] w-full border border-border shadow-elevated-lg group"
       style={coverFor(projectIndex)}
     >
       <ProjectImage
         explicit={project.image}
         publicIndex={publicCoverIndex(project)}
         alt={project.title}
-        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-premium group-hover:scale-105"
+        className="absolute inset-0 h-full w-full object-contain object-center transition-transform duration-700 ease-premium group-hover:scale-[1.03]"
         fallback={
           <>
-            <div className="absolute inset-0 opacity-[0.15] [background-image:linear-gradient(hsl(0_0%_100%/0.06)_1px,transparent_1px),linear-gradient(90deg,hsl(0_0%_100%/0.06)_1px,transparent_1px)] [background-size:56px_56px]" />
-            <span className="absolute inset-0 flex items-center justify-center font-display text-[30vw] md:text-[16vw] font-semibold leading-none text-white/[0.05] select-none">
+            <div className="absolute inset-0 opacity-[0.15] [background-image:linear-gradient(hsl(0_0%_100%/0.06)_1px,transparent_1px),linear-gradient(90deg,hsl(0_0%_100%/0.06)_1px,transparent_1px)] [background-size:32px_32px]" />
+            <span className="absolute inset-0 flex items-center justify-center font-display text-6xl font-semibold leading-none text-white/[0.07] select-none">
               {String(projectIndex + 1).padStart(2, "0")}
             </span>
           </>
         }
       />
       {project.link && (
-        <span className="absolute top-4 right-4 inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background/50 backdrop-blur-sm text-foreground opacity-0 -translate-y-1 transition-all duration-500 ease-premium group-hover:opacity-100 group-hover:translate-y-0 group-hover:border-red group-hover:text-red">
-          <ArrowUpRight size={18} />
+        <span className="absolute top-3 right-3 inline-flex h-8 w-8 items-center justify-center rounded-full border border-border bg-background/50 backdrop-blur-sm text-foreground opacity-0 -translate-y-1 transition-all duration-500 ease-premium group-hover:opacity-100 group-hover:translate-y-0 group-hover:border-red group-hover:text-red">
+          <ArrowUpRight size={14} />
         </span>
       )}
     </div>
@@ -136,22 +136,6 @@ const ProjectDetail = () => {
         </motion.div>
       </div>
 
-      {/* Cover */}
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.15, ease }}
-        className="px-6 md:px-12 mt-12"
-      >
-        {project.link ? (
-          <a href={project.link} target="_blank" rel="noopener noreferrer" className="block">
-            {cover}
-          </a>
-        ) : (
-          cover
-        )}
-      </motion.div>
-
       {/* Content */}
       <div className="px-6 md:px-12 py-16 md:py-24">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 md:gap-24">
@@ -163,6 +147,14 @@ const ProjectDetail = () => {
             transition={{ duration: 0.6, ease }}
             className="md:sticky md:top-28 md:self-start space-y-8"
           >
+            {project.link ? (
+              <a href={project.link} target="_blank" rel="noopener noreferrer" className="block max-w-sm">
+                {cover}
+              </a>
+            ) : (
+              <div className="max-w-sm">{cover}</div>
+            )}
+
             <div>
               <h3 className="font-body text-[11px] tracking-[0.22em] text-muted-foreground uppercase mb-3">
                 Role

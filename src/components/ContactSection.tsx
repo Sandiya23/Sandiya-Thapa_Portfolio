@@ -52,7 +52,11 @@ const ContactSection = () => {
               Phone
             </p>
             <a
-              href="tel:+9779845341517"
+              href={`https://wa.me/9779845341517?text=${encodeURIComponent(
+                "Hi Sandiya, I found your portfolio and would love to discuss a project with you."
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="font-body text-sm text-foreground hover:text-red transition-colors"
             >
               +977 9845341517

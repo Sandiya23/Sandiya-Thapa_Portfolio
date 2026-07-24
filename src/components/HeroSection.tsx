@@ -28,25 +28,8 @@ const HeroSection = () => {
       </div>
 
       <div className="relative z-10">
-        {/* Availability pill */}
-        <div className="px-6 md:px-12 pt-28 md:pt-24">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease }}
-            className="inline-flex items-center gap-2.5 rounded-full border border-border bg-background/40 backdrop-blur-md px-4 py-2"
-          >
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="pulse-ring relative inline-flex h-1.5 w-1.5 rounded-full bg-red" />
-            </span>
-            <span className="font-body text-[11px] tracking-[0.22em] uppercase text-muted-foreground">
-              Available for new projects
-            </span>
-          </motion.div>
-        </div>
-
         {/* Marquee name */}
-        <div className="overflow-hidden py-6 md:py-8">
+        <div className="overflow-hidden pt-28 md:pt-24 pb-6 md:pb-8">
           <div className="animate-marquee whitespace-nowrap flex">
             {[...Array(6)].map((_, i) => (
               <span
