@@ -2,12 +2,12 @@ import { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { supabase, resolveImageUrl } from "@/lib/supabase";
-import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import {
   AddButton,
   DeleteButton,
   FormCard,
+  NumberInput,
   SaveButton,
   SidebarItem,
   linesToArray,
@@ -122,12 +122,7 @@ const ProjectForm = ({ initial, isNew }: { initial: ProjectRow; isNew: boolean }
           </label>
           <label className="flex items-center gap-2.5 font-body text-sm text-muted-foreground">
             Order
-            <Input
-              type="number"
-              value={sortOrder}
-              onChange={(e) => setSortOrder(Number(e.target.value))}
-              className="h-8 w-16 text-center"
-            />
+            <NumberInput value={sortOrder} onChange={setSortOrder} className="h-8 w-16 text-center" />
           </label>
         </div>
         <div className="flex gap-2">

@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { AddButton, DeleteButton, Field, FormCard, SaveButton, linesToArray } from "./fields";
+import { AddButton, DeleteButton, Field, FormCard, NumberInput, SaveButton, linesToArray } from "./fields";
 
 interface ExperienceRow {
   id: number;
@@ -55,12 +55,7 @@ const RowForm = ({ initial, index }: { initial: ExperienceRow; index: number }) 
         </span>
         <label className="flex items-center gap-2.5 font-body text-sm text-muted-foreground">
           Order
-          <Input
-            type="number"
-            value={sortOrder}
-            onChange={(e) => setSortOrder(Number(e.target.value))}
-            className="h-8 w-16 text-center"
-          />
+          <NumberInput value={sortOrder} onChange={setSortOrder} className="h-8 w-16 text-center" />
         </label>
       </div>
       <div className="space-y-5">

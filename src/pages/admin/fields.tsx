@@ -2,6 +2,7 @@ import { useRef, useState, type ChangeEvent, type ReactNode } from "react";
 import { ChevronDown, ChevronUp, ImagePlus, Plus, Trash2, X } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 /** Shared building blocks for the admin editors (Supabase and local mode). */
@@ -66,6 +67,37 @@ export const AddButton = ({ label, onClick, className = "" }: { label: string; o
     {label}
   </Button>
 );
+
+/** Plain text input that only accepts digits — no spinners, no stray characters. */
+export const NumberInput = ({
+  value,
+  onChange,
+  className = "",
+}: {
+  value: number;
+  onChange: (value: number) => void;
+  className?: string;
+}) => {
+  const [text, setText] = useState(String(value));
+
+  const handle = (e: ChangeEvent<HTMLInputElement>) => {
+    const digits = e.target.value.replace(/\D/g, "");
+    setText(digits);
+    onChange(digits === "" ? 0 : Number(digits));
+  };
+
+  return (
+    <Input
+      type="text"
+      inputMode="numeric"
+      pattern="[0-9]*"
+      value={text}
+      onChange={handle}
+      onBlur={() => setText(String(value))}
+      className={className}
+    />
+  );
+};
 
 export const OrderButtons = ({ onUp, onDown }: { onUp: () => void; onDown: () => void }) => (
   <div className="flex gap-0.5">
