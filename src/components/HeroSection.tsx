@@ -65,7 +65,7 @@ const HeroSection = () => {
               {/* Social icons */}
               <div className="flex items-center gap-5 mt-6">
                 <a
-                  href="https://instagram.com/"
+                  href="https://www.instagram.com/_sandiya11/"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Instagram"
@@ -74,7 +74,7 @@ const HeroSection = () => {
                   <Instagram size={19} />
                 </a>
                 <a
-                  href="https://linkedin.com/in/"
+                  href="https://www.linkedin.com/in/sandiya-thapa-a5a78b278/"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="LinkedIn"
