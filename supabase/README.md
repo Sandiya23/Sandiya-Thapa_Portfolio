@@ -1,18 +1,20 @@
 # Supabase setup
 
-The site loads projects/case studies, experience, and skills from Supabase.
-If Supabase isn't configured (or a table is empty), it falls back to the
-static content in `src/data/` — so nothing breaks without it.
+The site loads projects/case studies, experience, skills, and the contact
+details (email, phone, social links) from Supabase. If Supabase isn't
+configured (or a table is empty), it falls back to the static content in
+`src/data/` — so nothing breaks without it.
 
 ## No Supabase? Edit locally instead
 
 You can edit all content without Supabase, from the same admin UI:
 
 1. Run `npm run dev` and open `http://localhost:8080/admin` — no login needed.
-2. Edit projects, experience, and skills; image uploads land in `public/images/`.
+2. Edit projects, experience, skills, and contact details; image uploads land
+   in `public/images/`.
 3. Saves are written straight into `src/data/projects.json`,
-   `src/data/experience.json`, and `src/data/skills.json`, and the dev site
-   updates instantly.
+   `src/data/experience.json`, `src/data/skills.json`, and `src/data/site.json`,
+   and the dev site updates instantly.
 4. To publish, commit and push — the deployed site ships that JSON as its
    built-in content.
 
@@ -60,9 +62,17 @@ Supabase dashboard under **Table Editor**:
   "Next project" link, and `published` lets you hide a row without deleting it.
 - **experiences** — the "Where I've worked" list.
 - **skill_groups** — the "Skills & tools" cards.
+- **site_settings** — a single row (`id = 1`) with the email, phone/WhatsApp
+  number, location, social links, CV link, hero role/tagline, and footer note.
 
 Array columns (`details`, `tools`, `skills`) are edited as a list — click the
-cell and add one entry per line.
+cell and add one entry per line. `site_settings.socials` is JSON:
+`[{"platform":"instagram","url":"https://…"}]` — `platform` picks the icon
+(instagram, linkedin, behance, dribbble, figma, github, twitter, facebook,
+youtube, email, website; anything else gets a globe icon).
+
+Already have the tables from an earlier setup? Re-running `schema.sql` is safe
+— it only adds what's missing, including `site_settings`.
 
 ### Project images
 

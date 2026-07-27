@@ -1,9 +1,13 @@
 import { motion } from "framer-motion";
-import { Instagram, Linkedin, Download, Calendar, ArrowDown } from "lucide-react";
+import { Download, Calendar, ArrowDown } from "lucide-react";
+import { useSiteSettings } from "@/hooks/useSiteContent";
+import SocialLinks from "./SocialLinks";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
 const HeroSection = () => {
+  const { roleTitle, tagline, cvUrl, location, timezone, socials } = useSiteSettings();
+
   return (
     <section className="relative min-h-screen flex flex-col justify-center overflow-hidden">
       {/* Ambient animated background */}
@@ -55,34 +59,19 @@ const HeroSection = () => {
           >
             <div>
               <h1 className="font-display text-4xl md:text-6xl font-semibold text-foreground leading-[1.02] tracking-tight">
-                UI/UX Designer
+                {roleTitle}
               </h1>
               <p className="font-body text-sm md:text-base text-muted-foreground mt-3 tracking-wide max-w-md">
-                Crafting intuitive interfaces & design systems — from wireframe to
-                pixel-perfect, responsive build.
+                {tagline}
               </p>
 
               {/* Social icons */}
-              <div className="flex items-center gap-5 mt-6">
-                <a
-                  href="https://www.instagram.com/_sandiya11/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Instagram"
-                  className="text-muted-foreground hover:text-red transition-colors duration-300 hover:-translate-y-0.5 transform-gpu"
-                >
-                  <Instagram size={19} />
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/sandiya-thapa-a5a78b278/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="LinkedIn"
-                  className="text-muted-foreground hover:text-red transition-colors duration-300 hover:-translate-y-0.5 transform-gpu"
-                >
-                  <Linkedin size={19} />
-                </a>
-              </div>
+              <SocialLinks
+                links={socials}
+                size={19}
+                className="flex items-center gap-5 mt-6"
+                linkClassName="text-muted-foreground hover:text-red transition-colors duration-300 hover:-translate-y-0.5 transform-gpu"
+              />
 
               {/* CTAs */}
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mt-9">
@@ -93,28 +82,32 @@ const HeroSection = () => {
                   <Calendar size={16} />
                   Book a Consultation
                 </a>
-                <a
-                  href="/Sandiya_Thapa_CV.pdf"
-                  download
-                  className="group inline-flex items-center gap-2 border border-border bg-background/30 backdrop-blur-sm text-foreground font-body text-sm font-medium px-7 py-3.5 hover:border-foreground/40 hover:bg-secondary transition-all duration-300 rounded-full"
-                >
-                  <Download size={16} className="transition-transform duration-300 group-hover:translate-y-0.5" />
-                  Download CV
-                </a>
+                {cvUrl && (
+                  <a
+                    href={cvUrl}
+                    download
+                    className="group inline-flex items-center gap-2 border border-border bg-background/30 backdrop-blur-sm text-foreground font-body text-sm font-medium px-7 py-3.5 hover:border-foreground/40 hover:bg-secondary transition-all duration-300 rounded-full"
+                  >
+                    <Download size={16} className="transition-transform duration-300 group-hover:translate-y-0.5" />
+                    Download CV
+                  </a>
+                )}
               </div>
             </div>
 
-            <div className="md:text-right">
-              <p className="font-body text-[10px] tracking-[0.3em] text-muted-foreground uppercase">
-                Based in
-              </p>
-              <p className="font-display text-lg font-medium text-foreground mt-1">
-                Kathmandu, Nepal
-              </p>
-              <p className="font-body text-[11px] tracking-[0.2em] text-muted-foreground/70 uppercase mt-1">
-                UTC+5:45
-              </p>
-            </div>
+            {location && (
+              <div className="md:text-right">
+                <p className="font-body text-[10px] tracking-[0.3em] text-muted-foreground uppercase">
+                  Based in
+                </p>
+                <p className="font-display text-lg font-medium text-foreground mt-1">{location}</p>
+                {timezone && (
+                  <p className="font-body text-[11px] tracking-[0.2em] text-muted-foreground/70 uppercase mt-1">
+                    {timezone}
+                  </p>
+                )}
+              </div>
+            )}
           </motion.div>
         </div>
 

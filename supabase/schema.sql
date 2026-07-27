@@ -38,21 +38,41 @@ create table if not exists public.skill_groups (
   sort_order int  not null default 0
 );
 
+-- Contact details, social links, and the hero/footer copy around them.
+-- Exactly one row, always id = 1. Edit it from /admin → Contact.
+create table if not exists public.site_settings (
+  id               smallint primary key default 1 check (id = 1),
+  email            text,
+  phone            text,                       -- shown as written, e.g. "+977 9845341517"
+  whatsapp         text,                       -- digits only, country code first; empty → tel: link
+  whatsapp_message text,                       -- prefilled WhatsApp message
+  location         text,
+  timezone         text,
+  role_title       text,                       -- hero headline + footer label
+  tagline          text,                       -- hero line under the headline
+  cv_url           text,                       -- "/Sandiya_Thapa_CV.pdf" or a full URL; empty hides the button
+  footer_note      text,
+  socials          jsonb not null default '[]'::jsonb  -- [{"platform":"instagram","url":"https://…"}]
+);
+
 -- ---------------------------------------------------------------------------
 -- Security: anyone may read, nobody may write with the public (anon) key.
 -- You edit content through the Supabase dashboard, which bypasses these rules.
 -- ---------------------------------------------------------------------------
 
-alter table public.projects     enable row level security;
-alter table public.experiences  enable row level security;
-alter table public.skill_groups enable row level security;
+alter table public.projects      enable row level security;
+alter table public.experiences   enable row level security;
+alter table public.skill_groups  enable row level security;
+alter table public.site_settings enable row level security;
 
 drop policy if exists "Public read" on public.projects;
-create policy "Public read" on public.projects     for select using (true);
+create policy "Public read" on public.projects      for select using (true);
 drop policy if exists "Public read" on public.experiences;
-create policy "Public read" on public.experiences  for select using (true);
+create policy "Public read" on public.experiences   for select using (true);
 drop policy if exists "Public read" on public.skill_groups;
-create policy "Public read" on public.skill_groups for select using (true);
+create policy "Public read" on public.skill_groups  for select using (true);
+drop policy if exists "Public read" on public.site_settings;
+create policy "Public read" on public.site_settings for select using (true);
 
 -- Writes are allowed for logged-in users only — that's you, via the site's
 -- /admin page. Create your login in the dashboard under Authentication →
@@ -67,6 +87,9 @@ create policy "Owner write" on public.experiences
   for all to authenticated using (true) with check (true);
 drop policy if exists "Owner write" on public.skill_groups;
 create policy "Owner write" on public.skill_groups
+  for all to authenticated using (true) with check (true);
+drop policy if exists "Owner write" on public.site_settings;
+create policy "Owner write" on public.site_settings
   for all to authenticated using (true) with check (true);
 
 -- Public storage bucket for project images. Upload from the /admin page (or
@@ -223,6 +246,26 @@ insert into public.experiences (role, company, details, sort_order) values
   ],
   3
 );
+
+insert into public.site_settings (
+  id, email, phone, whatsapp, whatsapp_message, location, timezone,
+  role_title, tagline, cv_url, footer_note, socials
+) values (
+  1,
+  'sandiyathapa323@gmail.com',
+  '+977 9845341517',
+  '9779845341517',
+  'Hi Sandiya, I found your portfolio and would love to discuss a project with you.',
+  'Kathmandu, Nepal',
+  'UTC+5:45',
+  'UI/UX Designer',
+  'Crafting intuitive interfaces & design systems — from wireframe to pixel-perfect, responsive build.',
+  '/Sandiya_Thapa_CV.pdf',
+  '© 2026 Sandiya Thapa. All rights reserved.',
+  '[{"platform":"instagram","url":"https://www.instagram.com/_sandiya11/"},
+    {"platform":"linkedin","url":"https://www.linkedin.com/in/sandiya-thapa-a5a78b278/"}]'::jsonb
+)
+on conflict (id) do nothing;
 
 insert into public.skill_groups (category, skills, sort_order) values
 ('UI/UX Design', array['UI Design', 'UX Design', 'Wireframing', 'Prototyping', 'Interaction Design', 'Responsive Design'], 1),

@@ -4,8 +4,9 @@ Personal portfolio for **Sandiya Thapa**, a UI/UX Designer based in Kathmandu, N
 Live at **[sandiyathapa.com.np](https://sandiyathapa.com.np)**.
 
 A single-page React site with a small `/admin` content studio. Content (projects,
-experience, skills) loads from Supabase when configured, and otherwise falls back to
-the static JSON in `src/data/` — so the site works with or without a backend.
+experience, skills, and the contact details / social links) loads from Supabase when
+configured, and otherwise falls back to the static JSON in `src/data/` — so the site
+works with or without a backend.
 
 ## Tech stack
 
@@ -38,7 +39,9 @@ npm run test
 
 ## Editing content
 
-There are two ways to edit projects, experience, and skills:
+The `/admin` page edits projects, experience, skills, and — on the **Contact** tab —
+the email, phone/WhatsApp number, location, social links, CV link, hero role and
+tagline, and footer note. There are two ways to run it:
 
 - **Local mode** — run `npm run dev` and open `http://localhost:8080/admin` (no login).
   Edits are written straight into `src/data/*.json`; commit and push to publish them.
@@ -60,7 +63,7 @@ Without these, the site runs entirely on the built-in content in `src/data/`.
 public/            Static assets, favicons, OG image, sitemap, robots.txt
 src/
   components/      UI sections and shared components
-  data/            Fallback content (projects, experience, skills) as JSON
+  data/            Fallback content (projects, experience, skills, site) as JSON
   hooks/           Data hooks (Supabase-backed with static fallback)
   lib/             Supabase client and helpers
   pages/           Routes: Index, ProjectDetail, NotFound, admin/

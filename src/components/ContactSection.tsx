@@ -1,9 +1,19 @@
 import { motion } from "framer-motion";
-import { Instagram, Linkedin, ArrowUpRight, ArrowUp } from "lucide-react";
+import { ArrowUpRight, ArrowUp } from "lucide-react";
+import { useSiteSettings } from "@/hooks/useSiteContent";
+import SocialLinks from "./SocialLinks";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
 const ContactSection = () => {
+  const { email, phone, whatsapp, whatsappMessage, location, roleTitle, footerNote, socials } =
+    useSiteSettings();
+
+  const whatsappDigits = whatsapp.replace(/\D/g, "");
+  const phoneHref = whatsappDigits
+    ? `https://wa.me/${whatsappDigits}?text=${encodeURIComponent(whatsappMessage)}`
+    : `tel:${phone.replace(/[^\d+]/g, "")}`;
+
   return (
     <section
       id="contact"
@@ -33,85 +43,68 @@ const ContactSection = () => {
         </h2>
 
         {/* Oversized email link */}
-        <a
-          href="mailto:sandiyathapa323@gmail.com"
-          className="group mt-12 inline-flex items-center gap-3 md:gap-5"
-        >
-          <span className="font-display text-2xl md:text-4xl lg:text-5xl font-medium text-muted-foreground transition-colors duration-300 group-hover:text-foreground break-all">
-            sandiyathapa323@gmail.com
-          </span>
-          <ArrowUpRight
-            className="shrink-0 text-red transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
-            size={32}
-          />
-        </a>
+        {email && (
+          <a href={`mailto:${email}`} className="group mt-12 inline-flex items-center gap-3 md:gap-5">
+            <span className="font-display text-2xl md:text-4xl lg:text-5xl font-medium text-muted-foreground transition-colors duration-300 group-hover:text-foreground break-all">
+              {email}
+            </span>
+            <ArrowUpRight
+              className="shrink-0 text-red transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+              size={32}
+            />
+          </a>
+        )}
 
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-2xl">
-          <div>
-            <p className="font-body text-[10px] tracking-[0.25em] text-muted-foreground uppercase mb-2">
-              Phone
-            </p>
-            <a
-              href={`https://wa.me/9779845341517?text=${encodeURIComponent(
-                "Hi Sandiya, I found your portfolio and would love to discuss a project with you."
-              )}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-body text-sm text-foreground hover:text-red transition-colors"
-            >
-              +977 9845341517
-            </a>
-          </div>
-          <div>
-            <p className="font-body text-[10px] tracking-[0.25em] text-muted-foreground uppercase mb-2">
-              Location
-            </p>
-            <p className="font-body text-sm text-foreground">Kathmandu, Nepal</p>
-          </div>
-          <div>
-            <p className="font-body text-[10px] tracking-[0.25em] text-muted-foreground uppercase mb-2">
-              Socials
-            </p>
-            <div className="flex items-center gap-4">
+          {phone && (
+            <div>
+              <p className="font-body text-[10px] tracking-[0.25em] text-muted-foreground uppercase mb-2">
+                Phone
+              </p>
               <a
-                href="https://instagram.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-                className="text-muted-foreground hover:text-red transition-colors duration-300"
+                href={phoneHref}
+                {...(whatsappDigits ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                className="font-body text-sm text-foreground hover:text-red transition-colors"
               >
-                <Instagram size={18} />
-              </a>
-              <a
-                href="https://linkedin.com/in/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
-                className="text-muted-foreground hover:text-red transition-colors duration-300"
-              >
-                <Linkedin size={18} />
+                {phone}
               </a>
             </div>
-          </div>
+          )}
+          {location && (
+            <div>
+              <p className="font-body text-[10px] tracking-[0.25em] text-muted-foreground uppercase mb-2">
+                Location
+              </p>
+              <p className="font-body text-sm text-foreground">{location}</p>
+            </div>
+          )}
+          {socials.some((link) => link.url?.trim()) && (
+            <div>
+              <p className="font-body text-[10px] tracking-[0.25em] text-muted-foreground uppercase mb-2">
+                Socials
+              </p>
+              <SocialLinks links={socials} />
+            </div>
+          )}
         </div>
 
-        <a
-          href="mailto:sandiyathapa323@gmail.com"
-          className="btn-sheen mt-12 inline-flex items-center gap-2 bg-red text-red-foreground font-body text-sm font-medium px-8 py-3.5 hover:bg-red-muted transition-colors duration-300 rounded-full"
-        >
-          Start a conversation
-          <ArrowUpRight size={16} />
-        </a>
+        {email && (
+          <a
+            href={`mailto:${email}`}
+            className="btn-sheen mt-12 inline-flex items-center gap-2 bg-red text-red-foreground font-body text-sm font-medium px-8 py-3.5 hover:bg-red-muted transition-colors duration-300 rounded-full"
+          >
+            Start a conversation
+            <ArrowUpRight size={16} />
+          </a>
+        )}
       </motion.div>
 
       {/* Footer */}
       <div className="relative mt-28 md:mt-36 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-        <p className="font-body text-xs text-muted-foreground">
-          © 2026 Sandiya Thapa. All rights reserved.
-        </p>
+        <p className="font-body text-xs text-muted-foreground">{footerNote}</p>
         <div className="flex items-center gap-8">
           <p className="font-body text-xs text-muted-foreground tracking-[0.2em] uppercase">
-            UI/UX Designer
+            {roleTitle}
           </p>
           <a
             href="#"

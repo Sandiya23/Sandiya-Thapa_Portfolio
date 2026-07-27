@@ -10,10 +10,11 @@ import fs from "fs";
  * uploaded images into public/images/. Only exists while `npm run dev` is
  * running — it is never part of the production build or the deployed site.
  */
-const CONTENT_FILES: Record<string, string> = {
-  projects: "src/data/projects.json",
-  experience: "src/data/experience.json",
-  skills: "src/data/skills.json",
+const CONTENT_FILES: Record<string, { file: string; shape: "array" | "object" }> = {
+  projects: { file: "src/data/projects.json", shape: "array" },
+  experience: { file: "src/data/experience.json", shape: "array" },
+  skills: { file: "src/data/skills.json", shape: "array" },
+  site: { file: "src/data/site.json", shape: "object" },
 };
 
 const localContentEditor = (): Plugin => ({
@@ -50,9 +51,9 @@ const localContentEditor = (): Plugin => ({
         return;
       }
 
-      const file = CONTENT_FILES[key];
-      if (!file) return send(404, { error: `Unknown content key "${key}"` });
-      const filePath = path.resolve(server.config.root, file);
+      const entry = CONTENT_FILES[key];
+      if (!entry) return send(404, { error: `Unknown content key "${key}"` });
+      const filePath = path.resolve(server.config.root, entry.file);
 
       if (req.method === "GET") {
         return send(200, JSON.parse(fs.readFileSync(filePath, "utf8")));
@@ -66,7 +67,11 @@ const localContentEditor = (): Plugin => ({
           } catch {
             return send(400, { error: "Invalid JSON" });
           }
-          if (!Array.isArray(data)) return send(400, { error: "Expected a JSON array" });
+          const ok =
+            entry.shape === "array"
+              ? Array.isArray(data)
+              : typeof data === "object" && data !== null && !Array.isArray(data);
+          if (!ok) return send(400, { error: `Expected a JSON ${entry.shape}` });
           fs.writeFileSync(filePath, JSON.stringify(data, null, 2) + "\n");
           send(200, { ok: true });
         });

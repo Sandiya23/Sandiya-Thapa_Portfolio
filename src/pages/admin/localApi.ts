@@ -3,7 +3,7 @@
  * Only reachable while `npm run dev` is running.
  */
 
-export type LocalContentKey = "projects" | "experience" | "skills";
+export type LocalContentKey = "projects" | "experience" | "skills" | "site";
 
 export const loadLocal = async <T,>(key: LocalContentKey): Promise<T> => {
   const res = await fetch(`/__local-content/${key}`);

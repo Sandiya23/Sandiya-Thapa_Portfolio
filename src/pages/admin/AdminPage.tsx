@@ -12,7 +12,13 @@ import { Field, FormCard, SaveButton } from "./fields";
 import ProjectsEditor from "./ProjectsEditor";
 import ExperiencesEditor from "./ExperiencesEditor";
 import SkillsEditor from "./SkillsEditor";
-import { LocalProjectsEditor, LocalExperiencesEditor, LocalSkillsEditor } from "./LocalEditors";
+import SiteEditor from "./SiteEditor";
+import {
+  LocalProjectsEditor,
+  LocalExperiencesEditor,
+  LocalSkillsEditor,
+  LocalSiteEditor,
+} from "./LocalEditors";
 
 const ModePill = ({ mode }: { mode: "supabase" | "local" }) => (
   <span className="inline-flex items-center gap-2 rounded-full border border-border px-3 py-1.5 font-body text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
@@ -74,6 +80,9 @@ const EditorTabs = ({ local }: { local?: boolean }) => (
       <TabsTrigger value="skills" className={tabTriggerClass}>
         Skills
       </TabsTrigger>
+      <TabsTrigger value="contact" className={tabTriggerClass}>
+        Contact
+      </TabsTrigger>
     </TabsList>
     <TabsContent value="projects" className="mt-8">
       {local ? <LocalProjectsEditor /> : <ProjectsEditor />}
@@ -83,6 +92,9 @@ const EditorTabs = ({ local }: { local?: boolean }) => (
     </TabsContent>
     <TabsContent value="skills" className="mt-8">
       {local ? <LocalSkillsEditor /> : <SkillsEditor />}
+    </TabsContent>
+    <TabsContent value="contact" className="mt-8">
+      {local ? <LocalSiteEditor /> : <SiteEditor />}
     </TabsContent>
   </Tabs>
 );

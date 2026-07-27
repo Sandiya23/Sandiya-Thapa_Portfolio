@@ -3,6 +3,7 @@ import { supabase, resolveImageUrl } from "@/lib/supabase";
 import { projects as fallbackProjects, type Project } from "@/data/projects";
 import { experiences as fallbackExperiences, type Experience } from "@/data/experience";
 import { skillGroups as fallbackSkillGroups, type SkillGroup } from "@/data/skills";
+import { siteSettings as fallbackSiteSettings, type SiteSettings, type SocialLink } from "@/data/site";
 
 /**
  * Each hook returns Supabase content when it's configured and has rows,
@@ -79,4 +80,56 @@ export const useSkillGroups = (): SkillGroup[] => {
     },
   });
   return data?.length ? data : fallbackSkillGroups;
+};
+
+export interface SiteSettingsRow {
+  email: string | null;
+  phone: string | null;
+  whatsapp: string | null;
+  whatsapp_message: string | null;
+  location: string | null;
+  timezone: string | null;
+  role_title: string | null;
+  tagline: string | null;
+  cv_url: string | null;
+  footer_note: string | null;
+  socials: SocialLink[] | null;
+}
+
+export const SITE_SETTINGS_COLUMNS =
+  "email, phone, whatsapp, whatsapp_message, location, timezone, role_title, tagline, cv_url, footer_note, socials";
+
+/**
+ * A column that was never filled in (null) falls back to src/data/site.json;
+ * a column cleared to "" stays empty, which hides that item on the site.
+ */
+export const rowToSiteSettings = (row: SiteSettingsRow): SiteSettings => ({
+  email: row.email ?? fallbackSiteSettings.email,
+  phone: row.phone ?? fallbackSiteSettings.phone,
+  whatsapp: row.whatsapp ?? fallbackSiteSettings.whatsapp,
+  whatsappMessage: row.whatsapp_message ?? fallbackSiteSettings.whatsappMessage,
+  location: row.location ?? fallbackSiteSettings.location,
+  timezone: row.timezone ?? fallbackSiteSettings.timezone,
+  roleTitle: row.role_title ?? fallbackSiteSettings.roleTitle,
+  tagline: row.tagline ?? fallbackSiteSettings.tagline,
+  cvUrl: row.cv_url ?? fallbackSiteSettings.cvUrl,
+  footerNote: row.footer_note ?? fallbackSiteSettings.footerNote,
+  socials: row.socials ?? fallbackSiteSettings.socials,
+});
+
+export const useSiteSettings = (): SiteSettings => {
+  const { data } = useQuery({
+    queryKey: ["site_settings"],
+    enabled: !!supabase,
+    queryFn: async (): Promise<SiteSettings | null> => {
+      const { data, error } = await supabase!
+        .from("site_settings")
+        .select(SITE_SETTINGS_COLUMNS)
+        .eq("id", 1)
+        .maybeSingle();
+      if (error) throw error;
+      return data ? rowToSiteSettings(data as unknown as SiteSettingsRow) : null;
+    },
+  });
+  return data ?? fallbackSiteSettings;
 };

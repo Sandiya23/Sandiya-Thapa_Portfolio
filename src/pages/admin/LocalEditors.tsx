@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import type { Project } from "@/data/projects";
 import type { Experience } from "@/data/experience";
 import type { SkillGroup } from "@/data/skills";
+import { siteSettings as fallbackSiteSettings, type SiteSettings } from "@/data/site";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -18,6 +19,7 @@ import {
   commaToArray,
 } from "./fields";
 import { ProjectFields, type ProjectDraft } from "./ProjectFields";
+import { SiteForm } from "./SiteEditor";
 import { loadLocal, saveLocal, uploadLocalImage, type LocalContentKey } from "./localApi";
 
 /**
@@ -316,4 +318,32 @@ export const LocalSkillsEditor = () => {
       <AddButton label="Add skill group" onClick={() => append({ category: "New category", skills: [] })} />
     </div>
   );
+};
+
+// --- Contact & socials ------------------------------------------------------
+
+export const LocalSiteEditor = () => {
+  const queryClient = useQueryClient();
+  const [busy, setBusy] = useState(false);
+  const { data, isLoading } = useQuery({
+    queryKey: ["local", "site"],
+    queryFn: () => loadLocal<Partial<SiteSettings>>("site"),
+  });
+
+  const save = async (settings: SiteSettings) => {
+    setBusy(true);
+    try {
+      await saveLocal("site", settings);
+      toast.success("Saved to src/data — commit & push to publish");
+      queryClient.invalidateQueries({ queryKey: ["local", "site"] });
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Save failed");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  if (isLoading) return <p className="font-body text-sm text-muted-foreground">Loading…</p>;
+
+  return <SiteForm initial={{ ...fallbackSiteSettings, ...data }} onSave={save} busy={busy} />;
 };
