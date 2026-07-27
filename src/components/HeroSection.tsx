@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Download, Calendar, ArrowDown } from "lucide-react";
 import { useSiteSettings } from "@/hooks/useSiteContent";
+import HeroBackground from "./HeroBackground";
 import SocialLinks from "./SocialLinks";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -11,25 +12,7 @@ const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex flex-col justify-center overflow-hidden">
       {/* Ambient animated background */}
-      <div className="absolute inset-0 z-0 overflow-hidden bg-background">
-        {/* Drifting aurora fields */}
-        <div className="animate-aurora-1 absolute -top-1/4 -left-1/4 h-[70vh] w-[70vh] rounded-full blur-[120px] bg-[radial-gradient(circle,hsl(0_72%_51%/0.20),transparent_70%)]" />
-        <div className="animate-aurora-2 absolute top-1/4 -right-1/4 h-[65vh] w-[65vh] rounded-full blur-[130px] bg-[radial-gradient(circle,hsl(0_60%_40%/0.15),transparent_70%)]" />
-        <div
-          className="animate-aurora-1 absolute -bottom-1/4 left-1/4 h-[55vh] w-[55vh] rounded-full blur-[120px] bg-[radial-gradient(circle,hsl(var(--foreground)/0.07),transparent_70%)]"
-          style={{ animationDelay: "-9s" }}
-        />
-
-        {/* Fine dot grid, softly masked toward the center */}
-        <div className="absolute inset-0 opacity-60 [background-image:radial-gradient(hsl(var(--foreground)/0.05)_1px,transparent_1px)] [background-size:26px_26px] [mask-image:radial-gradient(80%_60%_at_50%_35%,black,transparent_78%)]" />
-
-        {/* Radial key light from the top */}
-        <div className="absolute inset-0 bg-[radial-gradient(80%_55%_at_50%_-10%,hsl(0_72%_51%/0.10),transparent_60%)]" />
-        {/* Bottom fade into the page */}
-        <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-background to-transparent" />
-        {/* Vignette */}
-        <div className="absolute inset-0 bg-[radial-gradient(120%_120%_at_50%_40%,transparent_50%,var(--hero-vignette))]" />
-      </div>
+      <HeroBackground />
 
       <div className="relative z-10">
         {/* Marquee name */}
