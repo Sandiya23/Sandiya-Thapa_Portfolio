@@ -9,7 +9,7 @@ configured (or a table is empty), it falls back to the static content in
 
 You can edit all content without Supabase, from the same admin UI:
 
-1. Run `npm run dev` and open `http://localhost:8080/admin` — no login needed.
+1. Run `npm run dev` and open `http://localhost:8080/sandmin` — no login needed.
 2. Edit projects, experience, skills, and contact details; image uploads land
    in `public/images/`.
 3. Saves are written straight into `src/data/projects.json`,
@@ -39,7 +39,7 @@ the deployed site needs Supabase (below) for live editing.
 
 ## Create your admin login
 
-The site has a hidden admin page at **`/admin`** where you can edit everything
+The site has a hidden admin page at **`/sandmin`** where you can edit everything
 after signing in — no need to open the Supabase dashboard day-to-day.
 
 1. In the Supabase dashboard: **Authentication → Users → Add user** — enter
@@ -48,12 +48,12 @@ after signing in — no need to open the Supabase dashboard day-to-day.
 2. Still under Authentication, open **Sign In / Providers** and turn **off**
    "Allow new users to sign up" — otherwise anyone could create an account
    and edit your site.
-3. Visit `https://your-site.com/admin`, sign in, and edit projects,
+3. Visit `https://your-site.com/sandmin`, sign in, and edit projects,
    experience, and skills. Image upload is built in.
 
 ## Editing content
 
-You can edit either on the site's `/admin` page (recommended) or in the
+You can edit either on the site's `/sandmin` page (recommended) or in the
 Supabase dashboard under **Table Editor**:
 
 - **projects** — one row per case study. `slug` is the URL (`/work/<slug>`),
@@ -76,7 +76,7 @@ Already have the tables from an earlier setup? Re-running `schema.sql` is safe
 
 ### Project images
 
-The easiest way is the `/admin` page — uploading there fills everything in.
+The easiest way is the `/sandmin` page — uploading there fills everything in.
 Doing it by hand in the dashboard:
 
 1. **Storage → portfolio** → upload the image (e.g. into a `covers/` folder).

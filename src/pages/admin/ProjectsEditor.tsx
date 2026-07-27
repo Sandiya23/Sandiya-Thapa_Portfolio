@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { supabase, resolveImageUrl } from "@/lib/supabase";
+import { supabase } from "@/lib/supabase";
+import { resolveImageUrl } from "@/lib/supabaseEnv";
 import { Switch } from "@/components/ui/switch";
 import {
   AddButton,

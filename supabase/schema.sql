@@ -39,7 +39,7 @@ create table if not exists public.skill_groups (
 );
 
 -- Contact details, social links, and the hero/footer copy around them.
--- Exactly one row, always id = 1. Edit it from /admin → Contact.
+-- Exactly one row, always id = 1. Edit it from /sandmin → Contact.
 create table if not exists public.site_settings (
   id               smallint primary key default 1 check (id = 1),
   email            text,
@@ -75,7 +75,7 @@ drop policy if exists "Public read" on public.site_settings;
 create policy "Public read" on public.site_settings for select using (true);
 
 -- Writes are allowed for logged-in users only — that's you, via the site's
--- /admin page. Create your login in the dashboard under Authentication →
+-- /sandmin page. Create your login in the dashboard under Authentication →
 -- Users → "Add user" (email + password), and turn OFF "Allow new users to
 -- sign up" under Authentication → Sign In / Providers so nobody else can
 -- create an account.
@@ -92,7 +92,7 @@ drop policy if exists "Owner write" on public.site_settings;
 create policy "Owner write" on public.site_settings
   for all to authenticated using (true) with check (true);
 
--- Public storage bucket for project images. Upload from the /admin page (or
+-- Public storage bucket for project images. Upload from the /sandmin page (or
 -- dashboard → Storage → portfolio) — the file's public URL goes into
 -- projects.image_url.
 insert into storage.buckets (id, name, public)

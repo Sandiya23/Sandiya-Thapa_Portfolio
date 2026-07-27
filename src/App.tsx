@@ -24,7 +24,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/work/:id" element={<ProjectDetail />} />
           <Route
-            path="/admin"
+            path="/sandmin"
             element={
               <Suspense fallback={null}>
                 <AdminPage />

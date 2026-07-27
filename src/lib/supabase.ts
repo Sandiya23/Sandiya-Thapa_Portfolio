@@ -1,23 +1,15 @@
 import { createClient } from "@supabase/supabase-js";
-
-const url = import.meta.env.VITE_SUPABASE_URL as string | undefined;
-const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
+import { SUPABASE_ANON_KEY, SUPABASE_URL } from "./supabaseEnv";
 
 /**
- * Null when the env vars aren't set — every consumer falls back to the
- * static content in src/data/, so the site works without Supabase.
+ * The full Supabase client — auth, storage and writes.
+ *
+ * Only the /sandmin content studio imports this, which keeps createClient()
+ * (and with it the auth and realtime clients) inside the lazily-loaded admin
+ * chunk. The public site reads through lib/db.ts instead. Nothing on a public
+ * route may import this module, or the saving is lost.
+ *
+ * Null when the env vars aren't set — the admin page then offers local mode.
  */
-export const supabase = url && anonKey ? createClient(url, anonKey) : null;
-
-/**
- * Resolves a stored image reference to a usable URL. The database keeps only
- * a path inside the "portfolio" storage bucket (e.g. "covers/hero.webp") so
- * the Supabase project domain lives solely in VITE_SUPABASE_URL — full URLs
- * and site-relative paths ("/images/…") pass through unchanged.
- */
-export const resolveImageUrl = (value?: string | null): string | undefined => {
-  if (!value) return undefined;
-  if (value.startsWith("http") || value.startsWith("/")) return value;
-  if (!url) return undefined;
-  return `${url.replace(/\/$/, "")}/storage/v1/object/public/portfolio/${value}`;
-};
+export const supabase =
+  SUPABASE_URL && SUPABASE_ANON_KEY ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;

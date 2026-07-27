@@ -30,7 +30,7 @@ export interface SiteSettings {
 
 /**
  * Built-in contact details and social links, used whenever Supabase isn't
- * configured. Editable from the /admin page — in local mode this file's JSON
+ * configured. Editable from the /sandmin page — in local mode this file's JSON
  * is rewritten, in Supabase mode the site_settings row is updated instead.
  */
 export const siteSettings: SiteSettings = siteData;

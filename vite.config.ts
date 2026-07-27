@@ -5,7 +5,7 @@ import fs from "fs";
 
 
 /**
- * Dev-only content editor backend for the /admin page's "local mode".
+ * Dev-only content editor backend for the /sandmin page's "local mode".
  * Lets the browser read/write the JSON content files in src/data/ and save
  * uploaded images into public/images/. Only exists while `npm run dev` is
  * running — it is never part of the production build or the deployed site.

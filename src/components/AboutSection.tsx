@@ -51,14 +51,14 @@ const AboutSection = () => {
 
           <div className="mt-8 flex flex-wrap gap-6">
             <div>
-              <p className="font-display text-3xl font-semibold text-foreground">3+</p>
+              <p className="font-display text-3xl font-semibold text-foreground">5+</p>
               <p className="font-body text-[11px] tracking-[0.2em] text-muted-foreground uppercase mt-1">
-                Studios
+                Companies
               </p>
             </div>
             <div className="w-px self-stretch bg-border" />
             <div>
-              <p className="font-display text-3xl font-semibold text-foreground">5+</p>
+              <p className="font-display text-3xl font-semibold text-foreground">10+</p>
               <p className="font-body text-[11px] tracking-[0.2em] text-muted-foreground uppercase mt-1">
                 Projects
               </p>

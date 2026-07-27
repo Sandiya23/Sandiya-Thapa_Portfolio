@@ -166,6 +166,19 @@ const AdminPage = () => {
   const [mode, setMode] = useState<"supabase" | "local">(supabase ? "supabase" : "local");
   const isDev = import.meta.env.DEV;
 
+  /**
+   * The studio is a client-side route, so it can't be excluded in robots.txt
+   * without publishing its path in a file anyone can read. Tagging the page at
+   * runtime keeps it out of search results without advertising where it lives.
+   */
+  useEffect(() => {
+    const tag = document.createElement("meta");
+    tag.name = "robots";
+    tag.content = "noindex, nofollow";
+    document.head.appendChild(tag);
+    return () => tag.remove();
+  }, []);
+
   useEffect(() => {
     if (!supabase) {
       setReady(true);
@@ -191,7 +204,7 @@ const AdminPage = () => {
             the live site, follow <code>supabase/README.md</code>: create a Supabase project, run{" "}
             <code>supabase/schema.sql</code>, and add <code>VITE_SUPABASE_URL</code> and{" "}
             <code>VITE_SUPABASE_ANON_KEY</code> to the deployment environment. To edit without
-            Supabase, run <code>npm run dev</code> on your computer and open <code>/admin</code>{" "}
+            Supabase, run <code>npm run dev</code> on your computer and open <code>/sandmin</code>{" "}
             there — edits are saved into the project's JSON files.
           </p>
         </Shell>

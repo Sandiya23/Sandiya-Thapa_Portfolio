@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { supabase, resolveImageUrl } from "@/lib/supabase";
+import { db } from "@/lib/db";
+import { resolveImageUrl } from "@/lib/supabaseEnv";
 import { projects as fallbackProjects, type Project } from "@/data/projects";
 import { experiences as fallbackExperiences, type Experience } from "@/data/experience";
 import { skillGroups as fallbackSkillGroups, type SkillGroup } from "@/data/skills";
@@ -26,9 +27,9 @@ interface ProjectRow {
 export const useProjects = (): Project[] => {
   const { data } = useQuery({
     queryKey: ["projects"],
-    enabled: !!supabase,
+    enabled: !!db,
     queryFn: async (): Promise<Project[]> => {
-      const { data, error } = await supabase!
+      const { data, error } = await db!
         .from("projects")
         .select("slug, title, subtitle, role, description, details, tools, image_url, link")
         .eq("published", true)
@@ -53,9 +54,9 @@ export const useProjects = (): Project[] => {
 export const useExperiences = (): Experience[] => {
   const { data } = useQuery({
     queryKey: ["experiences"],
-    enabled: !!supabase,
+    enabled: !!db,
     queryFn: async (): Promise<Experience[]> => {
-      const { data, error } = await supabase!
+      const { data, error } = await db!
         .from("experiences")
         .select("role, company, details")
         .order("sort_order");
@@ -69,9 +70,9 @@ export const useExperiences = (): Experience[] => {
 export const useSkillGroups = (): SkillGroup[] => {
   const { data } = useQuery({
     queryKey: ["skill_groups"],
-    enabled: !!supabase,
+    enabled: !!db,
     queryFn: async (): Promise<SkillGroup[]> => {
-      const { data, error } = await supabase!
+      const { data, error } = await db!
         .from("skill_groups")
         .select("category, skills")
         .order("sort_order");
@@ -120,9 +121,9 @@ export const rowToSiteSettings = (row: SiteSettingsRow): SiteSettings => ({
 export const useSiteSettings = (): SiteSettings => {
   const { data } = useQuery({
     queryKey: ["site_settings"],
-    enabled: !!supabase,
+    enabled: !!db,
     queryFn: async (): Promise<SiteSettings | null> => {
-      const { data, error } = await supabase!
+      const { data, error } = await db!
         .from("site_settings")
         .select(SITE_SETTINGS_COLUMNS)
         .eq("id", 1)

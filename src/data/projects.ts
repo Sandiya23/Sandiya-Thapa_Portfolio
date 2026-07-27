@@ -14,6 +14,6 @@ export interface Project {
 
 /**
  * Built-in content, used whenever Supabase isn't configured. Editable from
- * the /admin page when running `npm run dev` locally (writes projects.json).
+ * the /sandmin page when running `npm run dev` locally (writes projects.json).
  */
 export const projects: Project[] = projectsData;
